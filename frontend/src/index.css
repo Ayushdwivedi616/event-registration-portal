@@ -1,0 +1,101 @@
+/* ==============================================================
+   GLOBAL DESIGN SYSTEM: index.css
+   ============================================================== */
+
+/* 1. Typography Imports
+   We load clean typography from Google Fonts:
+   - Inter: Extremely sleek, crisp sans-serif perfect for SaaS dashboards.
+   - Poppins: Modern geometric headings with a friendly, bold stance. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* 2. Tailwind Core Directives
+   These directives load Tailwind's base styles, component utilities, and utility classes. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3. Base Elements Styling
+   We set up default layouts, smooth transitions for dark mode toggles, and customized scrolling. */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
+    @apply transition-colors duration-300;
+  }
+
+  /* Custom Web Scrollbar for a premium look */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-700/50 rounded-full hover:bg-brand-purple/60 transition-all;
+  }
+}
+
+/* 4. Custom Reusable Utility Classes & Glassmorphic helpers */
+@layer components {
+  /* Premium Dark Glassmorphic Card
+     Used for events, dashboards, and form layouts. Displays a semi-transparent, blurred backdrop. */
+  .glass-card {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    @apply bg-zinc-950/60 border border-zinc-800/50 shadow-xl transition-all duration-300;
+  }
+
+  /* Light Theme Glassmorphism Variant */
+  .light .glass-card {
+    @apply bg-white/60 border border-zinc-200/50 shadow-lg;
+  }
+
+  /* Interactive Premium Buttons with purple-to-blue gradient */
+  .btn-gradient {
+    @apply relative overflow-hidden text-white font-medium px-6 py-2.5 rounded-lg
+           bg-gradient-to-r from-brand-purple to-brand-blue
+           hover:from-brand-purple/90 hover:to-brand-blue/90
+           active:scale-95 shadow-md shadow-brand-blue/20 hover:shadow-brand-purple/30
+           transition-all duration-200;
+  }
+
+  /* Secondary translucent buttons */
+  .btn-secondary {
+    @apply border border-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-900/60 px-6 py-2.5 rounded-lg active:scale-95 transition-all duration-200;
+  }
+  .light .btn-secondary {
+    @apply border-zinc-200 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100/60;
+  }
+
+  /* Modern Glassmorphic Inputs with glowing active outlines */
+  .glass-input {
+    @apply w-full bg-zinc-900/40 border border-zinc-800 rounded-lg px-4 py-3 text-white 
+           placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-brand-purple/50 
+           focus:border-brand-purple transition-all duration-200;
+  }
+  .light .glass-input {
+    @apply bg-white/40 border-zinc-200 text-zinc-900 placeholder-zinc-400 focus:ring-brand-blue/50 focus:border-brand-blue;
+  }
+}
+
+/* 5. Glowing Decorative Accents
+   Beautiful cosmic glowing backdrops typical of modern SaaS layouts. */
+.glow-accent-purple {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(0,0,0,0) 70%);
+}
+
+.glow-accent-blue {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+}
+
+/* For Light Mode, make glows slightly softer and warmer */
+.light .glow-accent-purple {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, rgba(255,255,255,0) 75%);
+}
+
+.light .glow-accent-blue {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, rgba(255,255,255,0) 75%);
+}
