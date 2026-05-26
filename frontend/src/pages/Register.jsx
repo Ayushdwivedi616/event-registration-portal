@@ -12,6 +12,8 @@
 import React, { useState, useEffect } from 'react';
 // Import beautiful vector icons from Lucide
 import { User, Mail, Phone, School, Sparkles, Send, Loader2 } from 'lucide-react';
+// Import dynamic API base address from our utility helper
+import { API_BASE_URL } from '../utils/api';
 
 export default function Register({ events, selectedEvent, setSelectedEvent, showToast, setActivePage }) {
   // --- STATE DECLARATIONS ---
@@ -111,9 +113,9 @@ export default function Register({ events, selectedEvent, setSelectedEvent, show
 
     try {
       // API call to save registration.
-      // We communicate with our Express.js backend running locally.
-      // We must match our server's port (5000).
-      const response = await fetch('http://localhost:5000/api/register', {
+      // We communicate with our Express.js backend.
+      // Falls back to localhost:5000 locally, uses production API in Vercel.
+      const response = await fetch(`${API_BASE_URL}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +153,7 @@ export default function Register({ events, selectedEvent, setSelectedEvent, show
     } catch (err) {
       // Handle network failure cases (e.g. backend server is not running)
       console.error('Registration Fetch Error:', err);
-      showToast('❌ Network error: Could not reach backend server. Make sure it is started on Port 5000.', 'error');
+      showToast(`❌ Network error: Could not reach backend server at ${API_BASE_URL}. Ensure it is running.`, 'error');
     } finally {
       // Turn off loading spinner (always runs, whether insert succeeded or crashed)
       setIsSubmitting(false);

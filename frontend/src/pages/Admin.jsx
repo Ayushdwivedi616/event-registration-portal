@@ -12,6 +12,8 @@
 import React, { useState, useEffect } from 'react';
 // Import beautiful vector icons from Lucide
 import { Search, Trash2, Users, School, Sparkles, RefreshCw, Loader2, Calendar } from 'lucide-react';
+// Import dynamic API base address from our utility helper
+import { API_BASE_URL } from '../utils/api';
 
 export default function Admin({ showToast }) {
   // --- STATE DECLARATIONS ---
@@ -27,7 +29,7 @@ export default function Admin({ showToast }) {
     setNetworkError(false);
     try {
       // Connect to the GET /api/registrations endpoint we defined in registerRoutes.js
-      const response = await fetch('http://localhost:5000/api/registrations');
+      const response = await fetch(`${API_BASE_URL}/api/registrations`);
       const data = await response.json();
 
       if (response.ok && data.success) {
@@ -38,7 +40,7 @@ export default function Admin({ showToast }) {
     } catch (err) {
       console.error('Error fetching registrations:', err);
       setNetworkError(true);
-      showToast('❌ Network error: Could not reach backend server.', 'error');
+      showToast(`❌ Network error: Could not reach backend server at ${API_BASE_URL}.`, 'error');
     } finally {
       setIsLoading(false); // Turn off loading spinner
     }
@@ -59,7 +61,7 @@ export default function Admin({ showToast }) {
     if (!isConfirmed) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/registration/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/registration/${id}`, {
         method: 'DELETE',
       });
       const data = await response.json();
@@ -76,7 +78,7 @@ export default function Admin({ showToast }) {
       }
     } catch (err) {
       console.error('Deletion Fetch Error:', err);
-      showToast('❌ Network error: Could not delete registration. Try restarting backend.', 'error');
+      showToast(`❌ Network error: Could not delete registration at ${API_BASE_URL}.`, 'error');
     }
   };
 
@@ -217,7 +219,7 @@ export default function Admin({ showToast }) {
           <div className="glass-card rounded-2xl p-12 text-center max-w-xl mx-auto border border-rose-500/30 bg-rose-950/10 text-rose-200">
             <h3 className="font-poppins font-bold text-lg mb-2">Backend Sever Offline</h3>
             <p className="text-xs text-rose-300 leading-relaxed mb-6">
-              We couldn't connect to the Express REST server on `http://localhost:5000`. Please verify that:
+              We couldn't connect to the Express REST server on `{API_BASE_URL}`. Please verify that:
               <br />
               1. The backend server is started using `npm run dev` in the `backend/` folder.
               <br />
