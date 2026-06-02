@@ -1,4 +1,4 @@
-# Nexus | Smart Event Registration Portal 🚀
+# Nexus | Smart Event Registration Portal 
 
 Nexus is a modern, premium **Full-Stack Event Registration Portal** designed with a beautiful, dark SaaS-style aesthetic similar to modern Next.js startup websites. 
 
